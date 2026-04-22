@@ -1,11 +1,24 @@
 services:
   - type: web
-    name: nyayadepaaai-api
+    name: nyayasakhi-backend
     env: python
-    buildCommand: "cd auth_app/backend && pip install -r requirements.txt"
+    rootDir: .
+    buildCommand: "pip install -r auth_app/backend/requirements.txt"
     startCommand: "cd auth_app/backend && uvicorn main:app --host 0.0.0.0 --port $PORT"
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.0
       - key: GEMINI_API_KEY
         sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: JINA_API_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: PINECONE_API_KEY
+        sync: false
+      - key: PINECONE_INDEX_NAME
+        sync: false
+      - key: SERVER_PORT
+        value: "8000"

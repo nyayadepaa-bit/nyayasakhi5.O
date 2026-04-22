@@ -27,10 +27,15 @@ from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
 
-# Ensure root app directory is importable
-root_dir = str(Path(__file__).resolve().parents[3])
-if root_dir not in sys.path:
-    sys.path.append(root_dir)
+# Ensure root app directory is importable (works locally and on Render)
+# parents[3] = repo root when running from auth_app/backend/services/
+# parents[2] = repo root when running from cwd=auth_app/backend
+_this_file = Path(__file__).resolve()
+for _depth in [3, 2, 4]:
+    _candidate = str(_this_file.parents[_depth])
+    if _candidate not in sys.path:
+        sys.path.insert(0, _candidate)
+root_dir = str(_this_file.parents[3])
 
 try:
     from app.llm_router import generate

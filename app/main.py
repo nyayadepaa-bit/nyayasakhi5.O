@@ -890,8 +890,8 @@ async def new_session(body: NewSessionRequest | None = None):
         "timestamp": datetime.now().isoformat(),
         "emotional_state": None, "user_name": None, "retrieval_error": None,
         "needs_clarification": False,
-        "suggestions": [],
-        "options": [{"label": "Stay Anonymous", "query": "stay anonymous"}], 
+        "suggestions": [{"label": "Stay Anonymous", "intent": "stay anonymous"}],
+        "options": ["Stay Anonymous"], 
         "free_text": True, "onboarding_key": "name",
     }
 
@@ -931,8 +931,8 @@ async def chat(request: ChatRequest):
         logger.info(f"[{session_id[:8]}] Auto-init '{q}' -> greeting")
         return _resp(
             INITIAL_GREETING, session_id, session, "greeting",
-            suggestions=[],
-            options=[{"label": "Stay Anonymous", "query": "stay anonymous"}], 
+            suggestions=[{"label": "Stay Anonymous", "intent": "stay anonymous"}],
+            options=["Stay Anonymous"], 
             free_text=True, onboarding_key="name",
         )
 
